@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+// Endpoint inicial do projeto. Feito para entender e manipular Query Parameters
+
 @RestController
 public class GreetingController {
 
