@@ -1,20 +1,18 @@
-package br.com.techflowhub.data.dto.v2;
+package br.com.techflowhub.data.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
-public class PersonDTOV2 implements Serializable {
+public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private long id;
     private String firstName;
     private String lastName;
-    private Date birthDay;
     private String address;
     private String gender;
 
-    public PersonDTOV2() {}
+    public PersonDTO() {}
 
     public long getId() {
         return id;
@@ -26,14 +24,6 @@ public class PersonDTOV2 implements Serializable {
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public Date getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
     }
 
     public void setFirstName(String firstName) {
@@ -66,12 +56,12 @@ public class PersonDTOV2 implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PersonDTOV2 that)) return false;
-        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDay(), that.getBirthDay()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender());
+        if (!(o instanceof PersonDTO person)) return false;
+        return getId() == person.getId() && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getBirthDay(), getAddress(), getGender());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender());
     }
 }

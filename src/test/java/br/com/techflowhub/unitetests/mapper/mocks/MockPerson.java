@@ -3,7 +3,7 @@ package br.com.techflowhub.unitetests.mapper.mocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.techflowhub.data.dto.v1.PersonDTO;
+import br.com.techflowhub.data.dto.PersonDTO;
 import br.com.techflowhub.model.Person;
 
 public class MockPerson {
