@@ -12,7 +12,7 @@ import java.util.List;
 // Classe do projeto focada na utilização dos métodos HTTP e integração ao banco de dados
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired

@@ -1,15 +1,27 @@
 package br.com.techflowhub.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender"})
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private long id;
+    private Long id;
+
+    @JsonProperty("first_name")
     private String firstName;
+
+    @JsonProperty("last_name")
     private String lastName;
+
     private String address;
+
+    @JsonIgnore
     private String gender;
 
     public PersonDTO() {}
