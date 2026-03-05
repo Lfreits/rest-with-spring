@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 // Classe do projeto focada na utilização dos métodos HTTP e integração ao banco de dados
@@ -31,17 +30,7 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public PersonDTO findById(@PathVariable("id") Long id) {
-
-        var person = service.findById(id);
-        person.setBirthDay(new Date());
-//        person.setPhoneNumber("+55 (11) 98888-7777");
-        person.setPhoneNumber("");
-        person.setLastName(null);
-        person.setSensitiveData("Foo Bar");
-
-        return person;
-
-        // return service.findById(id);
+        return service.findById(id);
     }
 
     @PostMapping(
