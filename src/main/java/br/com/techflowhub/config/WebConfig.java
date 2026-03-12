@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 
-        // Via QUERY PARAM http://localhost/api/person/v1/2?MediaType=xml
+          // Via QUERY PARAM http://localhost/api/person/v1/2?MediaType=xml
 //        configurer.favorParameter(true)
 //                .parameterName("mediaType")
 //                .ignoreAcceptHeader(true)
@@ -26,6 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .useRegisteredExtensionsOnly(false)
                 .defaultContentType(MediaType.APPLICATION_JSON)
                 .mediaType("json", MediaType.APPLICATION_JSON)
-                .mediaType("xml", MediaType.APPLICATION_XML);
+                .mediaType("xml", MediaType.APPLICATION_XML)
+                .mediaType("yaml", MediaType.APPLICATION_YAML);
     }
 }
