@@ -2,6 +2,7 @@ package br.com.techflowhub.services;
 
 import br.com.techflowhub.controllers.PersonController;
 import br.com.techflowhub.data.dto.PersonDTO;
+import br.com.techflowhub.exception.RequiredObjectIsNullException;
 import br.com.techflowhub.exception.ResourceNotFoundException;
 import br.com.techflowhub.model.Person;
 import br.com.techflowhub.repository.PersonRepository;
@@ -46,6 +47,9 @@ public class PersonServices {
     }
 
     public PersonDTO create(PersonDTO person) {
+
+        if(person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one Person!");
         var entity = parseObject(person, Person.class);
 
@@ -55,6 +59,9 @@ public class PersonServices {
     }
 
     public PersonDTO update(PersonDTO person) {
+
+        if(person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Updating one Person!");
 
         Person entity = repository.findById(person.getId())
