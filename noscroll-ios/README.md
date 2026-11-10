@@ -3,7 +3,10 @@
 Cliente independente de Instagram e YouTube (versões web oficiais, via WKWebView) sem Reels e sem Shorts.
 Sem backend, sem analytics, sem rastreamento. Todos os filtros rodam no iPhone.
 
-> Status: **Fase 1** (estrutura, tela inicial, configurações e preferências). O navegador chega na Fase 2.
+> Status: **pausado.** O caminho escolhido foi o Safari com a extensão Userscripts (ver `../noscroll-safari/`),
+> que não exige assinatura nem renovação a cada 7 dias. Este projeto fica guardado para o caso de você
+> mudar de ideia (conta paga de desenvolvedor ou SideStore). A Fase 1 nunca foi compilada: o CI do
+> GitHub Actions recusou o job antes de iniciar (provável problema de conta ou cobrança, não de código).
 
 ## Decisões aprovadas
 

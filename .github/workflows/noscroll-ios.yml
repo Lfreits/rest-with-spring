@@ -1,10 +1,8 @@
 name: NoScroll iOS
 
+# Projeto do app nativo pausado (caminho escolhido: Safari + Userscripts).
+# Execução apenas manual.
 on:
-  push:
-    paths:
-      - "noscroll-ios/**"
-      - ".github/workflows/noscroll-ios.yml"
   workflow_dispatch:
 
 permissions:

@@ -1,0 +1,12 @@
+{
+  "name": "noscroll-safari",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Filtros NoScroll (Reels e Shorts) para Safari via extensão Userscripts.",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
