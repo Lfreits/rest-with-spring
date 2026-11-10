@@ -1,0 +1,74 @@
+name: NoScroll iOS
+
+on:
+  push:
+    paths:
+      - "noscroll-ios/**"
+      - ".github/workflows/noscroll-ios.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: noscroll-ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: noscroll-ios
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ferramentas
+        run: |
+          xcodebuild -version
+          brew install xcodegen
+          xcodegen --version
+
+      - name: Gerar projeto Xcode
+        run: xcodegen generate
+
+      - name: Testes unitários (simulador)
+        run: |
+          UDID=$(xcrun simctl list devices available -j \
+            | jq -r '[.devices | to_entries[] | select(.key | test("iOS")) | .value[] | select(.name | startswith("iPhone"))][0].udid')
+          echo "Simulador: $UDID"
+          test -n "$UDID" && test "$UDID" != "null"
+          mkdir -p build
+          xcodebuild test \
+            -project NoScroll.xcodeproj \
+            -scheme NoScroll \
+            -destination "id=$UDID" \
+            -derivedDataPath build/sim \
+            | tee build/test.log | grep -E "error:|warning:|Test Suite|Test Case.*(passed|failed)|\*\* TEST" || true
+          grep -q "\*\* TEST SUCCEEDED \*\*" build/test.log
+
+      - name: Build para iPhone (não assinado)
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project NoScroll.xcodeproj \
+            -scheme NoScroll \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath build/device \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            | grep -E "error:|warning:|\*\* BUILD" || true
+          test -d build/device/Build/Products/Release-iphoneos/NoScroll.app
+
+      - name: Empacotar IPA
+        run: |
+          mkdir -p dist/Payload
+          cp -R build/device/Build/Products/Release-iphoneos/NoScroll.app dist/Payload/
+          cd dist && zip -qry NoScroll-unsigned.ipa Payload && ls -lh NoScroll-unsigned.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NoScroll-unsigned-ipa
+          path: noscroll-ios/dist/NoScroll-unsigned.ipa
+          retention-days: 14
