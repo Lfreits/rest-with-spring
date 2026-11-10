@@ -1,0 +1,16 @@
+! Title: NoScroll — teste de web app
+! Description: Lista mínima para testar se bloqueadores de conteúdo funcionam em web apps da Tela de Início.
+! Version: 0.0.1
+! Só oculta elementos. Não faz requisições e não lê conteúdo.
+
+! YouTube: botão Shorts da barra inferior e prateleiras/cards de Shorts
+m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
+m.youtube.com##ytm-reel-shelf-renderer
+m.youtube.com##ytm-shorts-lockup-view-model
+m.youtube.com##ytm-shorts-lockup-view-model-v2
+m.youtube.com##ytm-rich-section-renderer:has(ytm-reel-shelf-renderer)
+m.youtube.com##ytm-rich-item-renderer:has(a[href*="/shorts/"])
+m.youtube.com##ytm-video-with-context-renderer:has(a[href*="/shorts/"])
+
+! Instagram: aba Reels da navegação
+instagram.com##a[href="/reels/"]
