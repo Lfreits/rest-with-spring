@@ -1,6 +1,36 @@
 # NoScroll para Safari
 
-Filtros que tiram **Reels** do Instagram e **Shorts** do YouTube no Safari do iPhone.
+Filtros que tiram **Reels** do Instagram e **Shorts** do YouTube no iPhone, em dois formatos:
+
+| Onde você usa | Ferramenta | Arquivo | Recursos |
+|---|---|---|---|
+| **Web app** da Tela de Início (e Safari) | Bloqueador de conteúdo (ex.: wBlock) | `filters/noscroll.txt` | Oculta Reels e Shorts. Sem exceção para o Direct |
+| **Safari** | Extensão Userscripts | `scripts/*.user.js` | Tudo, incluindo o reel do Direct liberado e a tela de bloqueio |
+
+Web apps da Tela de Início **não rodam extensões** como o Userscripts, mas **aplicam bloqueadores de
+conteúdo**. Isso foi testado manualmente num iPhone com iOS 27 e wBlock.
+
+## Web app (lista de bloqueio)
+
+1. Instale o **wBlock** (gratuito, código aberto) e ative **todas** as extensões dele em
+   **Ajustes → Apps → Safari → Extensões**.
+2. No wBlock, adicione uma lista personalizada com este link:
+   https://raw.githubusercontent.com/Lfreits/rest-with-spring/claude/noscroll-ios-architecture-wmog5i/noscroll-safari/filters/noscroll.txt
+3. Aplique as alterações no wBlock e feche e reabra os web apps.
+4. Pode remover a lista de teste (`noscroll-teste.txt`).
+
+O que a lista faz:
+- **YouTube:** oculta o botão Shorts, as prateleiras e os cards de Shorts na home, na busca e nas recomendações, e a aba Shorts dos canais. Bloqueia a abertura direta de `/shorts/`.
+- **Instagram:** oculta a aba Reels, os reels do feed, do perfil e do Explorar, e **também os reels compartilhados no Direct**. Bloqueia a abertura direta de `/reel/` e `/reels/`.
+
+Limitações da lista, que não tem lógica:
+- não separa o reel do Direct;
+- não tem tela de bloqueio;
+- não oculta o chip "Shorts" da busca, porque isso exigiria comparar texto;
+- ao navegar dentro do app, o bloqueio por endereço (`$document`) só vale quando a página carrega do zero. Nas trocas internas de tela valem as regras de ocultação.
+
+## Safari (Userscripts)
+
 Funcionam com a extensão gratuita **Userscripts**, da App Store.
 
 - Sem app para assinar e sem renovação a cada 7 dias.
@@ -12,7 +42,7 @@ Funcionam com a extensão gratuita **Userscripts**, da App Store.
 | `scripts/instagram.user.js` | 0.1.0 | Oculta Reels. Preserva feed, Direct, perfis, publicações e busca |
 | `scripts/youtube.user.js` | 0.1.0 | Remove Shorts. Preserva vídeos, busca, canais, playlists e comentários |
 
-## Instalação (uma vez só)
+### Instalação (uma vez só)
 
 1. Instale o app **Userscripts** (desenvolvedor: Justin Wasack) pela App Store e abra-o uma vez.
 2. Vá em **Ajustes → Apps → Safari → Extensões → Userscripts**:

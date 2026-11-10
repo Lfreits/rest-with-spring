@@ -1,0 +1,50 @@
+! Title: NoScroll
+! Description: Remove Reels (Instagram) e Shorts (YouTube). Funciona em web apps da Tela de Início via bloqueador de conteúdo.
+! Version: 0.1.0
+! Homepage: https://github.com/Lfreits/rest-with-spring/tree/claude/noscroll-ios-architecture-wmog5i/noscroll-safari
+!
+! Apenas regras de ocultação (##) e de bloqueio de endereço (||). Nenhum script.
+! Sem lógica: Reels compartilhados no Direct também são ocultados.
+
+! ============================================================ YouTube
+! --- Componentes que são Shorts por definição
+youtube.com##ytm-reel-shelf-renderer
+youtube.com##ytm-shorts-lockup-view-model
+youtube.com##ytm-shorts-lockup-view-model-v2
+youtube.com##ytm-reel-item-renderer
+youtube.com##ytd-reel-shelf-renderer
+youtube.com##ytd-reel-item-renderer
+youtube.com##ytd-rich-shelf-renderer[is-shorts]
+! --- Seções que contêm prateleiras de Shorts
+youtube.com##ytm-rich-section-renderer:has(ytm-reel-shelf-renderer)
+youtube.com##ytm-rich-section-renderer:has(ytm-shorts-lockup-view-model)
+youtube.com##ytm-rich-section-renderer:has(ytm-shorts-lockup-view-model-v2)
+youtube.com##ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])
+youtube.com##grid-shelf-view-model:has(a[href*="/shorts/"])
+! --- Navegação: botão Shorts (mobile e desktop) e aba Shorts dos canais
+youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
+youtube.com##ytd-guide-entry-renderer:has(a[title="Shorts"])
+youtube.com##ytd-mini-guide-entry-renderer[aria-label="Shorts"]
+youtube.com##[role="tab"][href$="/shorts"]
+youtube.com##[role="tab"]:has(a[href$="/shorts"])
+! --- Cards de vídeo que apontam para um Short (home, busca, recomendações)
+youtube.com##ytm-video-with-context-renderer:has(a[href*="/shorts/"])
+youtube.com##ytm-compact-video-renderer:has(a[href*="/shorts/"])
+youtube.com##ytm-rich-item-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-video-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-grid-video-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-rich-item-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-compact-video-renderer:has(a[href*="/shorts/"])
+! --- Abrir um Short diretamente (carregamento completo da página)
+||youtube.com/shorts/$document
+
+! ============================================================ Instagram
+! --- Aba Reels da navegação e aba Reels dos perfis
+instagram.com##a[href="/reels/"]
+instagram.com##a[href$="/reels/"]
+! --- Reels no feed (card inteiro), nas grades de perfil, no Explorar e no Direct
+instagram.com##article:has(a[href*="/reel/"])
+instagram.com##a[href*="/reel/"]
+! --- Abrir Reels diretamente (carregamento completo da página)
+||instagram.com/reels/$document
+||instagram.com/reel/$document
